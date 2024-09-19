@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello-1') {
+            steps {
+                git branch: 'main', url: 'https://github.com/soubhagya11/project-1-maven-jenkins-CICD-docker-eks-.git'
+            }
+        }
+        stage('Hello-2') {
+            steps {
+                sh 'mvn clean'
+            }
+        }
+        stage('Hello-3') {
+            steps {
+                withSonarQubeEnv('SonarQube'){
+                    sh 'mvn install sonar:sonar'
+                }
+            }
+        }
+    }
+}
